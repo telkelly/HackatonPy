@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event App</title>
+</head>
+<body>
+{% extends 'base.html' %}
+<div class="cards">
+    {% block content %}
+    {% for event in event_list %}
+    <div class="card" style="width: 500px; margin: 20px auto;">
+        <div class="card-header">
+            Date: {{ event.date }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text">Description: {{ event.description }}</p>
+            <p class="card-text">Host: {{ event.host }}</p>
+            <p class="card-text">Location:{{ event.location }}</p>
+            <p class="card-text">Google Maps: {{ event.location.web }}</p>
+            <ul>
+                <p>Attendees: </p>
+                <p>{% for user in event.attendees.all %}
+                    {{ user }}
+                    {% endfor %}
+                </p>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

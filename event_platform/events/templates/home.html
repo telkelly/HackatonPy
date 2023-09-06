@@ -5,10 +5,19 @@
     <title>Event App</title>
 </head>
 <body>
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 
-    {% block content %}
-        <h1>Home</h1>
-    {% endblock %}
+{% block content %}
+<div style="text-align: center; padding: 70px 0">
+    <h1>Welcome to the Event Website</h1>
+    <p>Discover and join exciting events near you!</p>
+    <a href="{% url 'list-events' %}" class="button">View All Events</a>
+</div>
+<div class="container" style="text-align: center; padding: 70px 0">
+    <h2>About Us</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget quam in justo consectetur volutpat. Proin sit
+        amet odio in odio congue tincidunt.</p>
+</div>
+{% endblock %}
 </body>
 </html>

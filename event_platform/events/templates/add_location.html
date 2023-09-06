@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add location</title>
+</head>
+<body>
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin: 20px">
+    <h1>Add Location</h1>
+    {% if submitted %}
+    Your location was submitted Succefully!!!
+    {% else %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class="btn btn-secondary">
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}
+</body>
+</html>
