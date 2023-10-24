@@ -5,12 +5,12 @@ from .forms import EventForm, LocationForm
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, "base/home.html", {})
 
 
 def all_events(request):
     event_list = Event.objects.all()
-    return render(request, 'events.html', {'event_list': event_list})
+    return render(request, 'events/events.html', {'event_list': event_list})
 
 
 def add_event(request):
@@ -25,7 +25,7 @@ def add_event(request):
         if 'submitted' in request.GET:
             submitted = True
 
-    return render(request, 'add_event.html', {'form': form, 'submitted': submitted})
+    return render(request, 'events/add_event.html', {'form': form, 'submitted': submitted})
 
 
 def add_location(request):
@@ -40,4 +40,4 @@ def add_location(request):
         if 'submitted' in request.GET:
             submitted = True
 
-    return render(request, 'add_location.html', {'form': form, 'submitted': submitted})
+    return render(request, 'events/add_location.html', {'form': form, 'submitted': submitted})
