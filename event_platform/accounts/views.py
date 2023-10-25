@@ -6,4 +6,15 @@ from django.contrib import messages
 # Create your views here.
 
 def user_login(request):
-    return render(request, 'accounts/login.html')
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'There is a problem with login, check your username or password.')
+            return redirect('login')
+    else:
+        return render(request, 'accounts/login.html')
