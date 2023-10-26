@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from .models import Event
 from django.http import HttpResponseRedirect
@@ -41,3 +42,13 @@ def add_location(request):
             submitted = True
 
     return render(request, 'events/add_location.html', {'form': form, 'submitted': submitted})
+
+
+def search_event(request):
+    searched = ''
+    events = []
+
+    if request.method == "POST":
+        searched = request.POST.get('searched', '') 
+        events = Event.objects.filter(name__icontains = searched)
+    return render(request, 'events/search_event.html', {'searched': searched, 'events': events})
