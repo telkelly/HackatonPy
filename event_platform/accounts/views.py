@@ -18,3 +18,10 @@ def user_login(request):
             return redirect('login')
     else:
         return render(request, 'accounts/login.html')
+
+
+def user_logout(request):
+    logout(request)
+    messages.error(request, 'You were logged out')
+    return redirect('home')
+
