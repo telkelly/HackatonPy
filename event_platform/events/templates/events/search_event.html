@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div>
+    {% if searched %}
+        <h1>Pick the searched place {{searched}}</h1>
+        <br/>
+        {% for event in events %}
+        <div class="card-body">
+            <h5 class="card-title">{{ event.name }}</h5>
+            <p class="card-text">Description: {{ event.description }}</p>
+            <p class="card-text">Host: {{ event.host }}</p>
+            <p class="card-text">Location:{{ event.location }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h1>No existing event... try again</h1>
+    {% endif %}
+</div>
+{% endblock %}
