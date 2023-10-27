@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Location(models.Model):
     name = models.CharField('Location Name', max_length=255)
     address = models.CharField(max_length=255)

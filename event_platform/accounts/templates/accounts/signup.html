@@ -3,7 +3,10 @@
 {% block content %}
 
 {% if form.errors %}
-    <div class="alert alert-info mt-3">There is an error with the form..</div>
+    <div class="alert alert-warning alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        There is an error with the form..
+    </div>
 {% endif %}
     <br/>
     <div class="container">

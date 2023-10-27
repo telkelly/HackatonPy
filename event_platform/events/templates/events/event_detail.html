@@ -10,7 +10,6 @@
             <p class="card-text">Description: {{ event.description }}</p>
             <p class="card-text">Host: {{ event.host }}</p>
             <p class="card-text">Location:{{ event.location }}</p>
-            <p class="card-text">Google Maps: {{ event.location.web }}</p>
             <ul>
                 <p>Attendees: </p>
                 <p>{% for user in event.attendees.all %}
