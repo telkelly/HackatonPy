@@ -6,12 +6,20 @@
         <h1>Pick the searched place {{searched}}</h1>
         <br/>
         {% for event in events %}
+        <a href="{% url 'event' event.id %}">
+        <div class="card" style="width: 500px; margin: 20px auto;">
+        <div class="card-header">
+            Date: {{ event.date }}
+        </div>
         <div class="card-body">
             <h5 class="card-title">{{ event.name }}</h5>
             <p class="card-text">Description: {{ event.description }}</p>
             <p class="card-text">Host: {{ event.host }}</p>
             <p class="card-text">Location:{{ event.location }}</p>
         </div>
+        </div>
+        </a>
+</div>
         {% endfor %}
     {% else %}
         <h1>No existing event... try again</h1>

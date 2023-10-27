@@ -1,7 +1,6 @@
 {% extends 'base/base.html' %}
 <div class="cards">
     {% block content %}
-    {% for event in event_list %}
     <div class="card" style="width: 500px; margin: 20px auto;">
         <div class="card-header">
             Date: {{ event.date }}
@@ -21,6 +20,5 @@
             </ul>
         </div>
     </div>
-    {% endfor %}
     {% endblock %}
 </div>
