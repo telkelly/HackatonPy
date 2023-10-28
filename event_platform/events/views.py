@@ -1,5 +1,4 @@
-from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Event
 from django.http import HttpResponseRedirect
 from .forms import EventForm, LocationForm
@@ -57,3 +56,13 @@ def search_event(request):
         searched = request.POST.get('searched', '') 
         events = Event.objects.filter(name__icontains = searched)
     return render(request, 'events/search_event.html', {'searched': searched, 'events': events})
+
+
+def update_event(request, event_id):
+    event = Event.objects.get(pk=event_id)
+    form = EventForm(request.POST or None, instance = event)
+    if form.is_valid():
+        form.save()
+        return redirect('list-events')
+
+    return render(request, 'events/update_event.html', {'form': form, 'event': event})
