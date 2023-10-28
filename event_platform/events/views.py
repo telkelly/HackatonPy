@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Event
 from django.http import HttpResponseRedirect
@@ -24,7 +25,7 @@ def add_event(request):
         form = EventForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/add_event/?submitted=True')
+            return redirect('list-events')
     else:
         form = EventForm()
         if 'submitted' in request.GET:
@@ -66,3 +67,14 @@ def update_event(request, event_id):
         return redirect('list-events')
 
     return render(request, 'events/update_event.html', {'form': form, 'event': event})
+
+
+def delete_event(request, event_id):
+    event = Event.objects.get(pk=event_id)
+    if request.user == event.host:
+        event.delete()
+        messages.success(request, ("Event deleted"))
+        return redirect('list-events')
+    else:
+        messages.success(request, ("Event cann't be deleted. Login as the host"))
+        return redirect('login')

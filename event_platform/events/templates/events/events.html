@@ -18,7 +18,12 @@
                     {% endfor %}
                 </p>
             </ul>
+            {% if user.is_authenticated %}
+            {% if user == event.host %}
             <a href="{% url 'update-event' event.id %}" class="card-link">Update Event</a>
+            <a href="{% url 'delete-event' event.id %}" class="card-link">Delete Event</a>
+            {% endif %}
+            {% endif %}
         </div>
     </div>
     {% endfor %}
