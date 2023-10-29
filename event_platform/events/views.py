@@ -1,5 +1,8 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
+
 from .models import Event
 from django.http import HttpResponseRedirect
 from .forms import EventForm, LocationForm
@@ -78,3 +81,17 @@ def delete_event(request, event_id):
     else:
         messages.success(request, ("Event cann't be deleted. Login as the host"))
         return redirect('login')
+
+
+@login_required
+def add_attends(request, event_id):
+
+    event = Event.objects.get(pk=event_id)
+
+    if request.user in event.attendees.all():
+        pass
+    else:
+        event.attendees.add(request.user)
+        event.save()
+
+    return redirect('event', event_id = event.id)

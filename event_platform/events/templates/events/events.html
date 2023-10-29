@@ -17,6 +17,7 @@
                     {{ user }}
                     {% endfor %}
                 </p>
+                <a href="{% url 'add-attends' event.id %}" class="card-link">I'm in</a>
             </ul>
             {% if user.is_authenticated %}
             {% if user == event.host %}
