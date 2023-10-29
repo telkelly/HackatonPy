@@ -21,6 +21,7 @@ class Event(models.Model):
     host = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     description = models.TextField(blank=True)
     attendees = models.ManyToManyField(User, related_name='events_attending', blank=True)
+    event_image = models.ImageField(null = True, blank = True, upload_to = "images/")
 
     def __str__(self):
         return self.name

@@ -8,6 +8,9 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ event.name }}</h5>
+            {% if event.event_image %}
+            <img style="width: 400px" src="{{event.event_image.url}}">
+            {% endif %}
             <p class="card-text">Description: {{ event.description }}</p>
             <p class="card-text">Host: {{ event.host }}</p>
             <p class="card-text">Location:{{ event.location }}</p>

@@ -13,7 +13,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    fields = (('name', 'location'), 'date', 'description', 'host')
+    fields = (('name', 'location'), 'date', 'description', 'host', 'event_image')
     list_display = ('name', 'date', 'location')
     list_filter = ('date', 'location')
     ordering = ('-date',)
