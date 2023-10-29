@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
 
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, UserProfileUpdateForm
 
 
 def user_login(request):
@@ -43,3 +43,21 @@ def signup_user(request):
 
     return render(request, 'accounts/signup.html', {'form': form})
 
+
+def profile(request, user_id):
+    user = get_object_or_404(User, pk = user_id)
+    return render(request, 'accounts/profile.html', {'user': user})
+
+
+def update_profile(request, user_id):
+    user = User.objects.get(pk = user_id)
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            return render(request, 'accounts/profile.html', {'user': user})
+    else:
+        form = UserProfileUpdateForm(instance=user)
+
+    return render(request, 'accounts/update_profile.html', {'form': form})
