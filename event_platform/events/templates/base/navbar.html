@@ -1,20 +1,20 @@
 <header class="d-flex justify-content-center py-3">
-      <ul class="d-flex justify-content-center nav nav-pills">
-        <li class="nav-item "><button type="button" class="btn btn-outline-light"><a class="nav-link text-success" href="{% url 'home' %}">Home</a></button></li>
-        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-success" href="{% url 'list-events' %}">Events</a></button></li>
+      <ul class="d-flex justify-content-center nav nav-pills gap-2">
+        <li class="nav-item "><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'home' %}">Home</a></button></li>
+        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'list-events' %}">Events</a></button></li>
         {% if user.is_authenticated %}
-        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-success"href="{% url 'add-event' %}">Add Event</a></button></li>
-        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-success" href="{% url 'add-location' %}">Add Location</a></button></li>
-        <form method="POST" action="{% url 'search-event' %}" class="form-inline my-2 my-lg-0 ml-auto d-flex">
-          {% csrf_token %}
-          <input class="form-control mr-sm-2" type="search" placeholder="Search Event" name="searched" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit">Search</button>
-        </form>
+        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark"href="{% url 'add-event' %}">Add Event</a></button></li>
+        <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'add-location' %}">Add Location</a></button></li>
         <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'profile' user.id %}">Profile</a></button></li>
         <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'logout' %}">Logout</a></button></li>
         {% else %}
         <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'login' %}">Login</a></button></li>
         <li class="nav-item"><button type="button" class="btn btn-outline-light"><a class="nav-link text-dark" href="{% url 'signup' %}">Sign up</a></button></li>
         {% endif %}
+        <form method="POST" action="{% url 'search-event' %}" class="form-inline my-2 my-lg-0 ml-auto d-flex">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="search" placeholder="Search Event" name="searched" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit">Search</button>
+        </form>
       </ul>
 </header>

@@ -7,4 +7,6 @@ urlpatterns = [
     path('signup', views.signup_user, name='signup'),
     path('profile/<int:user_id>', views.profile, name='profile'),
     path('update_profile/<int:user_id>', views.update_profile, name = 'update-profile'),
+    path('update_password/<int:user_id>', views.update_password, name = 'update-password'),
+
 ]

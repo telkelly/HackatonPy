@@ -1,6 +1,7 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 
 from .forms import RegisterUserForm, UserProfileUpdateForm
@@ -63,3 +64,19 @@ def update_profile(request, user_id):
     return render(request, 'accounts/update_profile.html', {'form': form})
 
 
+def update_password(request, user_id):
+    user = User.objects.get(pk = user_id)
+    if request.method == 'POST':
+        form = PasswordChangeForm(user, request.POST)
+        if form.is_valid():
+            userForm = form.save()
+            update_session_auth_hash(request, userForm)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(user)
+    return render(request, 'accounts/change_password.html', {
+        'form': form
+    })

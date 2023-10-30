@@ -1,21 +1,25 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <br/>
-    <div class="container">
-        <form action="" method="POST">
-            <h1>Login</h1>
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="exampleInputUsername">Username</label>
-                <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div class="container mt-4">
+        <h1 class="text-center">Login</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="profile-info">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="exampleInputUsername">Username</label>
+                            <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary mt-4">Submit</button>
-        </form>
+        </div>
     </div>
 {% endblock %}

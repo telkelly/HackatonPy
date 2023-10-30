@@ -12,6 +12,7 @@
                     <p><strong>Email:</strong> {{ user.email }}</p>
                 </div>
                 <a href="{% url 'update-profile' user.id %}" class="btn btn-primary">Update Profile</a>
+                <a href="{% url 'update-password' user.id %}" class="btn btn-secondary">Change password</a>
             </div>
         </div>
     </div>
