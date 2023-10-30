@@ -61,3 +61,5 @@ def update_profile(request, user_id):
         form = UserProfileUpdateForm(instance=user)
 
     return render(request, 'accounts/update_profile.html', {'form': form})
+
+
