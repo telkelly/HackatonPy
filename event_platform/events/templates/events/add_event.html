@@ -1,17 +1,22 @@
 {% extends 'base/base.html' %}
 
-    {% block content %}
-     <div style="margin: 20px">
-        <h1>Add Event</h1>
-        {% if submitted %}
-            Your event was submitted Succefully!!!
-        {% else %}
-            <form action="" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" class="btn btn-secondary">
-            </form>
-     </div>
-        {% endif %}
-
-    {% endblock %}
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="text-center">Add Event</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="profile-info">
+                    {% if submitted %}
+                        Your event was submitted Succefully!!!
+                    {% else %}
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Submit" class="btn btn-secondary">
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

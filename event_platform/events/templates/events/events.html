@@ -19,8 +19,11 @@
                                 <li>{{ user }}</li>
                             {% endfor %}
                         </ul>
-                        <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login to be attended to the event</a>
+                        {% endif %}
                         {% if user.is_authenticated %}
+                        <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
                             {% if user == event.host %}
                                 <a href="{% url 'update-event' event.id %}" class="btn btn-info">Update Event</a>
                                 <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Delete Event</a>

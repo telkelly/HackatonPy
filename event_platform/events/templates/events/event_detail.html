@@ -1,26 +1,29 @@
 {% extends 'base/base.html' %}
-<div class="cards">
-    {% block content %}
-    <div class="card" style="width: 500px; margin: 20px auto;">
-        <div class="card-header">
-            Date: {{ event.date }}
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ event.name }}</h5>
-            {% if event.event_image %}
-            <img style="width: 400px" src="{{event.event_image.url}}">
-            {% endif %}
-            <p class="card-text">Description: {{ event.description }}</p>
-            <p class="card-text">Host: {{ event.host }}</p>
-            <p class="card-text">Location:{{ event.location }}</p>
-            <ul>
-                <p>Attendees: </p>
-                <p>{% for user in event.attendees.all %}
-                    {{ user }}
-                    {% endfor %}
-                </p>
-            </ul>
-        </div>
-    </div>
-    {% endblock %}
-</div>
+
+{% block content %}
+            <div class="col-lg-8 col-md-8 mx-auto">
+                <div class="card mb-4">
+                    <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.name }}</h5>
+                        <p class="card-text">Date: {{ event.date }}</p>
+                        <p class="card-text">Description: {{ event.description }}</p>
+                        <p class="card-text">Host: {{ event.host }}</p>
+                        <p class="card-text">Location: {{ event.location }}</p>
+                        <ul class="list-unstyled">
+                            <li>Attendees:</li>
+                            {% for user in event.attendees.all %}
+                                <li>{{ user }}</li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
+                        {% if user.is_authenticated %}
+                            {% if user == event.host %}
+                                <a href="{% url 'update-event' event.id %}" class="btn btn-info">Update Event</a>
+                                <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Delete Event</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+{% endblock %}
