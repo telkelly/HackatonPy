@@ -16,9 +16,9 @@ class Location(models.Model):
 
 class Event(models.Model):
     name = models.CharField('Event Name', max_length=255)
-    date = models.DateTimeField('Event Date')
+    date = models.DateTimeField()
     location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
-    host = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    host = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name="host")
     description = models.TextField(blank=True)
     attendees = models.ManyToManyField(User, related_name='events_attending', blank=True)
     event_image = models.ImageField(null = True, blank = True, upload_to = "images/")

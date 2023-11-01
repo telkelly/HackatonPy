@@ -6,23 +6,21 @@ from .models import Event, Location
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('name', 'date', 'location', 'host', 'description', 'attendees', 'event_image')
+        fields = ('name', 'date', 'location', 'host', 'description', 'event_image')
         labels = {
             'name': 'Name',
-            'date': 'YYYY-MM-DD HH:MM:SS',
+            'date': 'Date',
             'location': 'Location',
             'host': 'Host',
             'description': 'Description',
-            'attendees': '',
-            'event_image': '',
+            'event_image': 'Image',
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Event Name'}),
-            'date': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Event Date'}),
+            'date': forms.DateTimeInput(format=('%Y-%m-%dT%H:%M'), attrs={'type': 'datetime-local'}),
             'location': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Location'}),
             'host': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Host'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Event Description'}),
-            'attendees': forms.SelectMultiple(attrs={'class': 'form-control', 'placeholder': 'Attendees'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Event Description'})
         }
 
 
