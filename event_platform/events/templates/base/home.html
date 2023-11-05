@@ -1,14 +1,54 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div style="text-align: center; padding: 70px 0">
-    <h1>Welcome to the Event Website</h1>
-    <p>Discover and join exciting events near you!</p>
-    <a href="{% url 'list-events' %}" class="button">View All Events</a>
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-6">
+            <div class="text-center mt-4">
+                <h1 class="display-4">MeetThere: Your Social Calendar</h1>
+                <p class="lead">
+                    Discover. Connect. Create.
+                </p>
+                </br>
+                <ul class="list-unstyled">
+                    <li>📅 Create Events: Be the host. Plan gatherings effortlessly.</li>
+                    <li>🔎 Event Discovery: Find exciting meetups. Your interests, your way.</li>
+                    <li>🎯 Personalization: Tailor your profile. Meet like-minded souls.</li>
+                    <li>📊 Event Management: Stay organized and updated.</li>
+                    <li>🤝 Community Builder: Connect, make friends, and share passions.</li>
+                    <li>🔒 Privacy & Security: Your data, your control.</li>
+                </ul>
+                <a href="{% url 'signup' %}" class="btn btn-success">Sign Up Now</a>
+                <a href="{% url 'login' %}" class="btn login">or Login</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container" style="text-align: center; padding: 70px 0">
-    <h2>About Us</h2>
-    <p>Welcome to our vibrant and versatile event site, where extraordinary moments come to life! Whether you're planning a corporate conference, a dreamy wedding, a high-energy music festival, or any special occasion, our event site is the perfect canvas to turn your vision into reality.</p>
-</div>
+<style>
+    .display-4 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .lead {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    .list-unstyled li {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    .btn-success, .login {
+        margin-top: 20px;
+        padding: 10px 30px;
+    }
+
+    .login {
+        color: gray;
+    }
+</style>
 {% endblock %}
+
 

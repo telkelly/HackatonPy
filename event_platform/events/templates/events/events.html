@@ -1,23 +1,27 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <h1 class="text-center">Upcoming Events</h1>
+    <h4 class="text-center display-5 mb-3">Upcoming Events</h4>
         <div class="row mx-auto">
             {% for event in event_list %}
             <div class="col-lg-8 col-md-8 mx-auto">
                 <div class="card mb-4">
                     <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.name }}">
                     <div class="card-body">
-                        <h5 class="card-title">{{ event.name }}</h5>
+                        <h3 class="card-title">{{ event.name }}</h3>
                         <p class="card-text">Date: {{ event.date }}</p>
                         <p class="card-text">Description: {{ event.description }}</p>
                         <p class="card-text">Host: {{ event.host }}</p>
                         <p class="card-text">Location: {{ event.location }}</p>
                         <ul class="list-unstyled">
                             <li>Attendees:</li>
+                            {% if event.attendees.all %}
                             {% for user in event.attendees.all %}
                                 <li>{{ user }}</li>
                             {% endfor %}
+                            {% else %}
+                            <p class="card-text mt-2"><b>You can be the first</b></p>
+                            {% endif %}
                         </ul>
                         {% if not user.is_authenticated %}
                         <a href="{% url 'login' %}" class="btn btn-primary">Login to be attended to the event</a>

@@ -6,7 +6,7 @@ from .models import Event, Location
 class EventForm(ModelForm):
     class Meta:
         model = Event
-        fields = ('name', 'date', 'location', 'host', 'description', 'event_image')
+        fields = ('name', 'date', 'location','host', 'description', 'event_image')
         labels = {
             'name': 'Name',
             'date': 'Date',
