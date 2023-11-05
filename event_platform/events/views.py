@@ -104,3 +104,12 @@ def user_events(request):
     user_host = Event.objects.filter(host=current_user)
 
     return render(request, 'events/user_events.html', {'user_events': user_host})
+
+
+@login_required
+def user_attending_events(request):
+    current_user = request.user
+
+    attending_events = Event.objects.filter(attendees=current_user)
+
+    return render(request, 'events/attending_events.html', {'attending_events': attending_events})

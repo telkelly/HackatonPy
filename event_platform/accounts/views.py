@@ -1,31 +1,36 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
-
+from django.urls import reverse_lazy
 from .forms import RegisterUserForm, UserProfileUpdateForm
 
 
-def user_login(request):
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        user = authenticate(request, username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-        else:
-            messages.error(request, 'There is a problem with login, check your username or password.')
-            return redirect('login')
-    else:
-        return render(request, 'accounts/login.html')
+class MyLoginView(LoginView):
+    template_name = 'accounts/login.html'  # Specify your login template
+
+    def form_valid(self, form):
+        # Custom logic after successful login
+        messages.success(self.request, 'Login successful')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        # Custom logic for invalid login
+        messages.error(self.request, 'There is a problem with login. Check your username or password.')
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
-def user_logout(request):
-    logout(request)
-    messages.error(request, 'You were logged out')
-    return redirect('home')
+class MyLogoutView(LogoutView):
+    next_page = 'home'
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, 'You have been logged out')
+        return super().dispatch(request, *args, **kwargs)
 
 
 def signup_user(request):
