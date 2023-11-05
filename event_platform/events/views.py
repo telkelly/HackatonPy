@@ -95,3 +95,12 @@ def add_attends(request, event_id):
         event.save()
 
     return redirect('event', event_id = event.id)
+
+
+@login_required
+def user_events(request):
+    current_user = request.user
+
+    user_host = Event.objects.filter(host=current_user)
+
+    return render(request, 'events/user_events.html', {'user_events': user_host})
