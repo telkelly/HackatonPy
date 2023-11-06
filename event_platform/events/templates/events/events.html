@@ -24,7 +24,7 @@
                             {% endif %}
                         </ul>
                         {% if not user.is_authenticated %}
-                        <a href="{% url 'login' %}" class="btn btn-primary">Login to be attended to the event</a>
+                        <a href="{% url 'login' %}" class="link-success">Login to be attended to the event</a>
                         {% endif %}
                         {% if user.is_authenticated %}
                         <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>

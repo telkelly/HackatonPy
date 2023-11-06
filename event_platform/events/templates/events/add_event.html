@@ -1,53 +1,62 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center">Add Event</h1>
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="profile-info">
-                    {% if submitted %}
-                        Your event was submitted Succefully!!!
-                    {% else %}
-                        <form action="" method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                             {{ form.non_field_errors }}
-
-                            <div class="form-field">
-                                {{ form.name.label_tag }}
-                                {{ form.name }}
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Add Event</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if submitted %}
+                            <div class="alert alert-success">
+                                Your event was submitted successfully!
                             </div>
+                        {% else %}
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
 
-                            <div class="form-field">
-                                {{ form.date.label_tag }}
-                                {{ form.date }}
-                            </div>
+                                {{ form.non_field_errors }}
 
-                            <div class="form-field">
-                                {{ form.location.label_tag }}
-                                {{ form.location }}
-                                <a href="{% url 'add-location' %}" class="btn btn-primary">Add location</a>
-                            </div>
+                                <div class="form-group mb-3">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                </div>
 
-                            <div class="form-field">
-                                {{ form.host.label_tag }}
-                                {{ form.host }}
-                            </div>
+                                <div class="form-group mb-3">
+                                    {{ form.date.label_tag }}
+                                    {{ form.date }}
+                                </div>
 
-                            <div class="form-field">
-                                {{ form.description.label_tag }}
-                                {{ form.description }}
-                            </div>
+                                <div class="form-group mb-3">
+                                    {{ form.location.label_tag }}
+                                    {{ form.location }}
+                                    <a href="{% url 'add-location' %}" class="btn btn-success mt-3">Add Location</a>
+                                </div>
 
-                            <div class="form-field">
-                                {{ form.event_image.label_tag }}
-                                {{ form.event_image }}
-                            </div>
-                            <input type="submit" value="Submit" class="btn btn-secondary">
-                        </form>
-                    {% endif %}
+                                <div class="form-group mb-3">
+                                    {{ form.host.label_tag }}
+                                    {{ form.host }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.description.label_tag }}
+                                    {{ form.description }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.event_image.label_tag }}
+                                    {{ form.event_image }}
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+

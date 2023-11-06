@@ -1,8 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<h1>Your Hosted Events</h1>
-<a href="{% url 'user-attending-events' %}">Attending</a>
+<h4 class="text-center display-5 mb-3">Your Hosted Events<a style="padding-left: 10px; color: green" class="h4" href="{% url 'user-attending-events' %}">You Are Attending</a></h4>
 <div class="col-lg-8 col-md-8 mx-auto">
   {% if user_events %}
     <div class="card mb-4">

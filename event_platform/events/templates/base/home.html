@@ -17,6 +17,7 @@
                     <li>📊 Event Management: Stay organized and updated.</li>
                     <li>🤝 Community Builder: Connect, make friends, and share passions.</li>
                     <li>🔒 Privacy & Security: Your data, your control.</li>
+                    <a href="{% url 'list-events' %}" class="btn events">Explore Events Here</a>
                 </ul>
                 <a href="{% url 'signup' %}" class="btn btn-success">Sign Up Now</a>
                 <a href="{% url 'login' %}" class="btn login">or Login</a>
@@ -47,6 +48,10 @@
 
     .login {
         color: gray;
+    }
+
+    .events{
+        color: darkslategrey;
     }
 </style>
 {% endblock %}

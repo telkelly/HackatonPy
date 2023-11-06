@@ -1,21 +1,58 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h1 class="text-center">Add Event</h1>
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="profile-info">
-                    {% if submitted %}
-                    Your location was submitted Succefully!!!
-                    {% else %}
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Add Location</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if submitted %}
+                            <div class="alert alert-success">
+                                Your event was submitted successfully!
+                            </div>
+                        {% else %}
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
 
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" value="Submit" class="btn btn-secondary">
-                    </form>
-                    {% endif %}
+                                {{ form.non_field_errors }}
+
+                                <div class="form-group mb-3">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.address.label_tag }}
+                                    {{ form.address }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.zip_code.label_tag }}
+                                    {{ form.zip_code }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.phone.label_tag }}
+                                    {{ form.phone }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.web.label_tag }}
+                                    {{ form.web }}
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    {{ form.email_address.label_tag }}
+                                    {{ form.email_address }}
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
