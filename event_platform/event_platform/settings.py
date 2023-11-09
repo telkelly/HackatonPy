@@ -32,6 +32,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'event_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -88,14 +89,14 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-'''
+
 # render db
-import dj_database_url
-
-DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL')),
-
-}
+# import dj_database_url
+#
+# DATABASES = {
+#     'default': dj_database_url.parse(env('DATABASE_URL')),
+#
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
