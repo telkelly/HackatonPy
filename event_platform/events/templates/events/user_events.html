@@ -6,7 +6,9 @@
   {% if user_events %}
     <div class="card mb-4">
       {% for event in user_events %}
+        {% if event.event_image %}
         <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.name }}">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ event.name }}</h5>
             <p class="card-text">Date: {{ event.date }}</p>
@@ -19,10 +21,9 @@
                 <li>{{ user }}</li>
                 {% endfor %}
             </ul>
-            <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
             {% if user.is_authenticated %}
             {% if user == event.host %}
-            <a href="{% url 'update-event' event.id %}" class="btn btn-info">Update Event</a>
+            <a href="{% url 'update-event' event.id %}" class="btn btn-secondary">Update Event</a>
             <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Delete Event</a>
             {% endif %}
             {% endif %}

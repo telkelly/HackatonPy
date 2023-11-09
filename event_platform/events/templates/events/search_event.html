@@ -1,28 +1,50 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<div>
+<div class="container">
     {% if searched %}
-        <h1>Pick the searched place {{searched}}</h1>
-        <br/>
-        {% for event in events %}
-        <a href="{% url 'event' event.id %}">
-        <div class="card" style="width: 500px; margin: 20px auto;">
-        <div class="card-header">
-            Date: {{ event.date }}
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">{{ event.name }}</h5>
-            <p class="card-text">Description: {{ event.description }}</p>
-            <p class="card-text">Host: {{ event.host }}</p>
-            <p class="card-text">Location:{{ event.location }}</p>
-        </div>
-        </div>
-        </a>
-</div>
-        {% endfor %}
+        <h1 class="text-center display-5 mb-3">Picked the searched place: "{{ searched }}"</h1>
+            {% for event in events %}
+                <div class="col-lg-8 col-md-8 mx-auto">
+                    <div class="card mb-4">
+                        {% if event.event_image %}
+                            <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="card-title">{{ event.name }}</h3>
+                            <p class="card-text">Date: {{ event.date }}</p>
+                            <p class="card-text">Description: {{ event.description }}</p>
+                            <p class="card-text">Host: {{ event.host.username }}</p> <!-- Assuming 'host' is a User model instance -->
+                            <p class="card-text">Location: {{ event.location }}</p>
+                            <ul class="list-unstyled">
+                                <li>Attendees:</li>
+                                {% if event.attendees.exists %}
+                                    {% for user in event.attendees.all %}
+                                        <li>{{ user.username }}</li> <!-- Assuming you want to display usernames -->
+                                    {% endfor %}
+                                {% else %}
+                                    <li><b>Be the first to join!</b></li>
+                                {% endif %}
+                            </ul>
+                            {% if not request.user.is_authenticated %}
+                                <a href="{% url 'login' %}" class="link-success">Log in to attend this event</a>
+                            {% else %}
+                                <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
+                                {% if request.user == event.host %}
+                                    <a href="{% url 'update-event' event.id %}" class="btn btn-info">Update Event</a>
+                                    <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Delete Event</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="alert alert-info" role="alert">
+                    No events found for your search criteria.
+                </div>
+            {% endfor %}
     {% else %}
-        <h1>No existing event... try again</h1>
+        <h1>No existing event... try again.</h1>
     {% endif %}
 </div>
 {% endblock %}
