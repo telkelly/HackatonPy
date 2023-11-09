@@ -1,0 +1,5 @@
+Hi, first of all well done, you did a really good job at your hackthon. I have a couple of tiny notes:
+for the event table you need to set the relation with the other tables like one to many, etc.. then it will be presented much more better at the ui like a drop down list
+for the connection to the db, why you choosed the primitive way? at the connection.py
+I really liked your code because you choosed to implement your hackathon using the materials that we went over, like creating the form from the code, etc..
+well code, and you can continue with your hackathon as your final project
