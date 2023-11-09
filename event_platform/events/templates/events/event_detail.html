@@ -3,7 +3,9 @@
 {% block content %}
 <div class="col-lg-8 col-md-8 mx-auto">
     <div class="card mb-4">
+        {% if event.event_image %}
         <img src="{{ event.event_image.url }}" class="card-img-top" alt="{{ event.name }}">
+        {% endif %}
         <div class="card-body">
             <h5 class="card-title">{{ event.name }}</h5>
             <p class="card-text">Date: {{ event.date }}</p>

@@ -4,6 +4,12 @@ from django import forms
 from .models import Profile
 
 
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length = 50)

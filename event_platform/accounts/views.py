@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -5,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.urls import reverse_lazy
-from .forms import RegisterUserForm, UserProfileUpdateForm
+from .forms import RegisterUserForm, UserProfileUpdateForm, ProfileUpdateForm
 
 
 class MyLoginView(LoginView):
@@ -40,34 +41,20 @@ def signup_user(request):
             form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
+            user = authenticate(username = username, password = password)
             login(request, user)
             messages.success(request, 'Registration was successful')
             return redirect('home')
     else:
         form = RegisterUserForm()
 
-    return render(request, 'accounts/signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form':form})
 
 
 def profile(request, user_id):
     user = get_object_or_404(User, pk = user_id)
 
-    return render(request, 'accounts/profile.html', {'user': user})
-
-
-def update_profile(request, user_id):
-    user = User.objects.get(pk = user_id)
-    if request.method == 'POST':
-        form = UserProfileUpdateForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your profile has been updated successfully.')
-            return render(request, 'accounts/profile.html', {'user': user})
-    else:
-        form = UserProfileUpdateForm(instance=user)
-
-    return render(request, 'accounts/update_profile.html', {'form': form})
+    return render(request, 'accounts/profile.html', {'user':user})
 
 
 def update_password(request, user_id):
@@ -84,5 +71,30 @@ def update_password(request, user_id):
     else:
         form = PasswordChangeForm(user)
     return render(request, 'accounts/change_password.html', {
-        'form': form
+        'form':form
     })
+
+
+@login_required
+def update_profile(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+
+    if request.method == 'POST':
+        user_form = UserProfileUpdateForm(request.POST, instance=user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            return redirect('profile', user_id=user.id)
+    else:
+        user_form = UserProfileUpdateForm(instance=user)
+        profile_form = ProfileUpdateForm(instance=user.profile)
+
+    context = {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    }
+
+    return render(request, 'accounts/update_profile.html', context)
