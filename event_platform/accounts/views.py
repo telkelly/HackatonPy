@@ -77,7 +77,6 @@ def update_password(request, user_id):
 
 
 @login_required
-@login_required
 def update_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 

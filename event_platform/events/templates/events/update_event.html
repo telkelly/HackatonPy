@@ -1,21 +1,21 @@
 {% extends 'base/base.html' %}
 
-    {% block content %}
-{% if user.is_authenticated %}
-     <div style="margin: 20px">
-         {% if user == event.host %}
-        <h1>Update Event</h1>
-            <form action="" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Submit" class="btn btn-secondary">
-            </form>
-         {% else %}
-         <h2>Access Denied (only host cand change the information)</h2>
-         {% endif %}
-     </div>
-{% else %}
-    <h1>Sorry! You must be Logged In</h1>
-    <a href="{% url 'login' %}">Login here</a>
-{% endif %}
-    {% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div style="margin: 20px">
+            {% if user == event.host %}
+                <h1>Update Event</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit" class="btn btn-secondary">
+                </form>
+            {% else %}
+                <h2>Access Denied (only host can change the information)</h2>
+            {% endif %}
+        </div>
+    {% else %}
+        <h1>Sorry! You must be Logged In</h1>
+        <a href="{% url 'login' %}">Login here</a>
+    {% endif %}
+{% endblock %}
