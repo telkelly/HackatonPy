@@ -43,7 +43,7 @@ def add_location(request):
         form = LocationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/add_location/?submitted=True')
+            return redirect('add-event')
     else:
         form = LocationForm()
         if 'submitted' in request.GET:

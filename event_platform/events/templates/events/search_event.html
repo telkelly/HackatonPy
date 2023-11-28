@@ -29,11 +29,7 @@
                             {% if not request.user.is_authenticated %}
                                 <a href="{% url 'login' %}" class="link-success">Log in to attend this event</a>
                             {% else %}
-                                <a href="{% url 'add-attends' event.id %}" class="btn btn-primary">I'm in</a>
-                                {% if request.user == event.host %}
-                                    <a href="{% url 'update-event' event.id %}" class="btn btn-info">Update Event</a>
-                                    <a href="{% url 'delete-event' event.id %}" class="btn btn-danger">Delete Event</a>
-                                {% endif %}
+                                <a href="{% url 'add-attends' event.id %}" class="btn btn-warning">I'm in</a>
                             {% endif %}
                         </div>
                     </div>
