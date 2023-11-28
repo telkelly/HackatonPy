@@ -3,10 +3,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib import messages
 from django.urls import reverse_lazy
 from .forms import RegisterUserForm, UserProfileUpdateForm, ProfileUpdateForm
+from .models import Profile
 
 
 class MyLoginView(LoginView):
@@ -76,12 +77,15 @@ def update_password(request, user_id):
 
 
 @login_required
+@login_required
 def update_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
 
+    profile, created = Profile.objects.get_or_create(user=user)
+
     if request.method == 'POST':
         user_form = UserProfileUpdateForm(request.POST, instance=user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=user.profile)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
@@ -90,7 +94,7 @@ def update_profile(request, user_id):
             return redirect('profile', user_id=user.id)
     else:
         user_form = UserProfileUpdateForm(instance=user)
-        profile_form = ProfileUpdateForm(instance=user.profile)
+        profile_form = ProfileUpdateForm(instance=profile)
 
     context = {
         'user_form': user_form,
