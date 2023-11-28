@@ -37,20 +37,29 @@ class MyLogoutView(LogoutView):
 
 def signup_user(request):
     if request.method == "POST":
-        form = RegisterUserForm(request.POST)
+        form = RegisterUserForm(request.POST, request.FILES)  # Include request.FILES for image handling
         if form.is_valid():
-            form.save()
+            user = form.save()  # Save the user first
+
+            # Create or update the user profile
+            profile, created = Profile.objects.get_or_create(user=user)
+            profile.image = form.cleaned_data.get('image')  # Get the image from form
+            profile.save()
+
+            # Authenticate and login the user
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username = username, password = password)
-            login(request, user)
-            messages.success(request, 'Registration was successful')
-            return redirect('home')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, 'Registration was successful')
+                return redirect('home')
+            else:
+                messages.error(request, 'There was an error logging in')
     else:
         form = RegisterUserForm()
 
-    return render(request, 'accounts/signup.html', {'form':form})
-
+    return render(request, 'accounts/signup.html', {'form': form})
 
 def profile(request, user_id):
     user = get_object_or_404(User, pk = user_id)
