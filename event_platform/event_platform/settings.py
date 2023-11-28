@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,10 +28,9 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-b^^s(f8t(9#w7f061l6a#pc3#(z&trc@1g2-)uh1g+1h(07c=7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -78,25 +77,26 @@ WSGI_APPLICATION = 'event_platform.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_events',
-        'USER': 'admin',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-# render db
-# import dj_database_url
 #
 # DATABASES = {
-#     'default': dj_database_url.parse(env('DATABASE_URL')),
-#
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db_events',
+#         'USER': 'admin',
+#         'PASSWORD': '123456',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
 # }
+
+# render db
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+DATABASES = {
+    'default':dj_database_url.parse(DATABASE_URL),
+
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
