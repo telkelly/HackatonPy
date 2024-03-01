@@ -64,7 +64,7 @@ def signup_user(request):
 def profile(request, user_id):
     user = get_object_or_404(User, pk = user_id)
 
-    return render(request, 'accounts/profile.html', {'user':user})
+    return render(request, 'accounts/profile.html', {'user': user})
 
 
 def update_password(request, user_id):
